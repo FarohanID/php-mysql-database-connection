@@ -28,6 +28,7 @@ class Database {
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC // Data diambil sebagai array asosiatif
         ];
 
+        // Coba buat koneksi, jika gagal tangkap errornya
         try {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
         } catch (PDOException $e) {
@@ -37,6 +38,6 @@ class Database {
 
     // Fungsi untuk mempermudah eksekusi query nantinya
     public function getHandler() {
-        return $this->dbh;
+        return $this->dbh; // Mengembalikan database handler untuk digunakan di luar kelas
     }
 }
