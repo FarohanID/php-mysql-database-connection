@@ -23,14 +23,15 @@ class Database {
         
         // Set options untuk koneksi yang lebih aman & profesional
         $options = [
-            PDO::ATTR_PERSISTENT => true, // Meningkatkan performa
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Munculkan error jika ada masalah
+            PDO::ATTR_PERSISTENT => true, // Meningkatkan performa dengan koneksi persisten
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Munculkan error jika ada masalah koneksi
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC // Data diambil sebagai array asosiatif
         ];
 
         // Coba buat koneksi, jika gagal tangkap errornya
         try {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
+            echo "Koneksi ke database berhasil! Nama database yang digunakan adalah <strong>" . $this->dbname . "</strong>.";
         } catch (PDOException $e) {
             die("Koneksi Database Gagal: " . $e->getMessage());
         }
@@ -41,3 +42,5 @@ class Database {
         return $this->dbh; // Mengembalikan database handler untuk digunakan di luar kelas
     }
 }
+
+$db = new Database(); // Baris di bawah ini akan memicu fungsi __construct() dan menampilkan pesan koneksi berhasil atau gagal
